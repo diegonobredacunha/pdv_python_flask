@@ -1,0 +1,23 @@
+Módulos necessários
+pip3 install Flask
+pip3 install flask-sqlalchemy
+pip3 install flask-migrate
+pip3 install flask-script
+
+
+Para criar o banco de dados é necessário abrir o terminal python:
+$ python3
+>> from app import db
+>> db.create_all()
+
+ou
+
+Usando a migration
+$ python run.py db init
+$ python run.py db migrate
+$ python run.py db upgrade
+
+
+Após a criação dos dados, no terminal comum, digite:
+$ python3 app.py runserver
+
