@@ -189,7 +189,7 @@ class DespesaRendimento(db.Model):
     
     def __repr__(self):
         return '<DespesaRendimento %r>' % self.descricao
-
+    
 class Caixa(db.Model):
     __tablename__ = 'caixas'
 
@@ -197,6 +197,7 @@ class Caixa(db.Model):
     dt_rendimento = db.Column(db.DateTime, onupdate=datetime.datetime.now)
     funcionario_id = db.Column(db.BigInteger, ForeignKey('funcionarios.id'))
     funcionario = relationship('Funcionario', back_populates='caixas')
+    produto_caixa = relationship('ProdutoCaixa', uselist=False, back_populates='caixas')
 
     def __init__(self, dt_rendimento, funcionario_id):
         self.dt_rendimento = dt_rendimento
@@ -204,3 +205,43 @@ class Caixa(db.Model):
     
     def __repr__(self):
         return '<Caixa %r>' % self.dt_rendimento
+    
+class Produto(db.Model):
+    __tablename__ = 'produtos'
+    
+    id = db.Column(db.BigInteger, primary_key=True)
+    codigo_barra = db.Column(db.String(255), unique=True)
+    descricao = db.Column(db.String(100))
+    quantidade = db.Column(db.Integer, nullable=False)
+    valor_unitario = db.Column(db.Float(16,2), nullable=False)
+    preco_venda = db.Column(db.Float(16,2), nullable=False)
+    
+    produto_caixa = relationship('ProdutoCaixa', uselist=False, back_populates='produtos')
+    
+    def __init__(self, codigo_barra, descricao, quantidade, valor_unitario, preco_venda):
+        self.codigo_barra = codigo_barra
+        self.descricao = descricao
+        self.quantidade = quantidade
+        self.valor_unitario = valor_unitario
+        self.preco_venda = preco_venda
+    
+    def __repr__(self):
+        return '<Produto %r>' % self.descricao
+
+class ProdutoCaixa(db.Model):
+    __tablename__ = 'produtos_caixa'
+    
+    id = db.Column(db.BigInteger, primary_key=True)
+    quantidade_produto_comprado = db.Column(db.Integer, nullable=False)
+    total_compra = db.Column(db.Float(16,2), nullable=False)
+    
+    produto_id = db.Column(db.BigInteger, ForeignKey('produtos.id'))
+    produto = relationship('Produto', back_populates='produtos_caixa')
+    caixa_id = db.Column(db.BigInteger, ForeignKey('caixas.id'))
+    caixa = relationship('Caixa', back_populates='produtos_caixa')
+    
+    def __init__(self, quantidade_produto_comprado, total_compra, produto_id, caixa_id):
+        self.quantidade_produto_comprado = quantidade_produto_comprado
+        self.total_compra = total_compra
+        self.produto_id = produto_id
+        self.caixa_id = caixa_id
