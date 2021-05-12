@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <meta http-equiv='cache-control' content='no-cache'>
+    <meta http-equiv='expires' content='0'>
+    <meta http-equiv='pragma' content='no-cache'>
+    <meta charset="UTF-8">
+    <title>Inserir</title>
+</head>
+<body>
+    
+    {% include "header_nav.html" %}
+    <br>
+
+    <h2>Novo Cadastro</h2>
+    <hr>
+
+    <div class="container col-md-8">
+        <form action="/salvar_pessoa" method="POST" name="frm_salvar_pessoa" class="ml-3">
+            <h4>Pessoa</h4>
+            <hr>
+            
+            <label for="nome_pessoa">Nome:</label>
+            <input type="text" id="nome_pessoa" name="nome" class="form-control align-self-center" placeholder="Nome Completo">
+            
+            <br>
+
+            <label for="cpf_pessoa">CPF:</label>
+            <input type="text" id="cpf_pessoa" name="cpf" class="form-control" min="1" max="11" placeholder="Apenas números">
+            
+            <br>
+            
+            <label for="dt_nascimento">Data de nascimento:</label>
+            <input type="date" id="dt_nascimento" name="dt_nasc" class="form-control">
+            
+            <br>
+
+            <label for="nm_mae">Nome da mãe:</label>
+            <input type="text" id="nm_mae" name="nome_mae" class="form-control" placeholder="Nome completo da Mãe">
+            
+            <br>
+            
+            <label for="nm_pai">Nome do pai:</label>
+            <input type="text" id="nm_pai" name="nome_pai" class="form-control" placeholder="Nome completo do Pai">
+            
+            <br>
+            
+            <label for="sexo_pessoa">Sexo:</label>
+            <select id="sexo_pessoa" class="form-control" name="sexo">
+                <option value="">Selecione</option>
+                <option value="M">Masculino</option>
+                <option value="F">Feminino</option>
+            </select>
+        
+            <br>
+            
+            <label for="est_civ">Estado civil:</label>
+            <select id="est_civ" class="form-control" name="estado_civil">
+                <option value="">Selecione o estado civil...</option>
+                <option value="SOLTEIRO(A)">Solteiro(a)</option>
+                <option value="CASADO(A)">Casado(a)</option>
+                <option value="VIUVO(A)">Viúvo(a)</option>
+                <option value="SEPARADO(A)">Separado</option>
+                <option value="UNIAO ESTAVEL">União Estável</option>
+                <option value="DIVORCIADO(A)">Divorciado(a)</option>
+            </select>
+            
+            <br>
+            
+            <a href="#" class="btn btn-link" data-toggle='collapse' data-target="#div_funcionario">Formulário Funcionário</a>
+        </form>
+    </div>
+    
+    <div id="div_funcionario" class="container col-md-8 collapse">
+        <form action="/salvar_funcionario" method="POST" name="frm_salvar_funcionario" class="ml-3">
+            <h4>Funcionário</h4>
+            <hr>
+
+            <label for="mat">Matrícula:</label>
+            <input type="text" id="mat" name="matricula" class="form-control" placeholder="Campo automático" disabled>
+            
+            <br>
+            
+            <label for="dt_admissao">Data de admissão:</label>
+            <input type="date" id="dt_admissao" name="dt_adm" class="form-control">
+
+            <br>
+            
+            <label for="dt_demissao">Data de demissão:</label>
+            <input type="date" id="dt_demissao" name="dt_dem" class="form-control">
+
+            <br>
+
+            <label for="ctps">Carteira de trabalho:</label>
+            <input type="text" id="ctps" name="cart_trab" class="form-control" placeholder="Apenas números">
+            
+            <br>
+
+            <label for="serie">Série:</label>
+            <input type="text" id="serie" name="cart_trab_serie" class="form-control" placeholder="Apenas números">
+
+            <br>
+
+            <label for="titulo">Título de eleitor:</label>
+            <input type="text" id="titulo" name="tit_eleit" class="form-control" placeholder="Apenas números">
+
+            <br>
+
+            <label for="zona">Zona:</label>
+            <input type="text" id="zona" name="tit_eleit_zon" class="form-control" placeholder="Apenas números">
+
+            <br>
+
+            <label for="secao">Seção:</label>
+            <input type="text" id="secao" name="tit_eleit_sec" class="form-control" placeholder="Apenas números">
+
+            <br>
+
+            <label for="cargo">Cargo:</label>
+            <input type="text" id="cargo" name="carg" class="form-control" placeholder="Ex: Caixa">
+
+            <br>
+
+            <label for="salario">Salario:</label>
+            <input type="text" id="salario" name="sal" class="form-control" placeholder="Ex: 1000,00">
+        </form>
+    </div>
+    
+    <br>
+
+    <div class="container">
+        <a href="/listagem" class="btn btn-secondary" role="button">Cancelar</a>
+        <button type="submit" class="btn btn-success">Inserir</button>
+    </div>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <meta http-equiv='cache-control' content='no-cache'>
+    <meta http-equiv='expires' content='0'>
+    <meta http-equiv='pragma' content='no-cache'>
+
+    <title>Lista de pessoas</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.debug.js" 
+        integrity="sha384-THVO/sM0mFD9h7dfSndI6TS0PgAGavwKvB5hAxRRvc0o9cPLohB0wb/PTA7LdUHs" 
+        crossorigin="anonymous">
+    </script>
+
+</head>
+<body>
+
+    {% include "header_nav.html" %}
+    <br>
+
+    <!--FORM DA CONSULTA-->
+    <div class="container">
+        <h2>Listagem de Pessoas</h2>
+        <form action="/consultar_pessoas" method="POST" name="frm_consulta" class="ml-3">
+            <div class="form-group">
+                <div class="row">
+                    <input type="text" class="form-control col-md-4" name="consulta" placeholder="Digite aqui a sua consulta">
+                    
+                    <spa class="col-md-1"></spa>
+
+                    <select class="form-control col-md-2" name="campo">
+                        <option value="">Selecione</option>
+                        <option value="nome">Nome</option>
+                        <option value="cpf">CPF</option>
+                    </select>
+
+                    <spa class="col-md-1"></spa>
+
+                    <button type="submit" class="btn btn-dark">Consultar</button>
+                    
+                    <spa class="col-md-1"></spa>
+                    
+                    <a class="btn btn-primary" href="/nova/pessoa">Novo Cadastro</a>
+                </div>
+            </div>
+        </form>
+
+        <!--TABELA COM DADOS DO BANCO E ORDENAÇÃO-->
+        <div style="overflow:scroll; height:310px; width:100%" align="center">
+            <table class="table table-striped">
+                <!--CABEÇALHO DA TABELA-->
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">
+                            <a href="/ordenar_pessoas/nome/{{ ordem }}">NOME</a>
+                        </th>
+                        <th scope="col">
+                            <a href="/ordenar_pessoas/cpf/{{ ordem }}">CPF</a>
+                        </th>
+                        <th scope="col">
+                            <a href="#">Editar</a>
+                        </th>
+                        <th scope="col">
+                            <a href="#">Deletar</a>
+                        </th>
+                    </tr>
+                </thead>
+                <!--DADOS DA TABELA-->
+                <tbody>
+                    {% for pessoa in pessoas %}
+                        <tr>
+                            <td nowrap="true">
+                                <a href="/selecao/{{ pessoa.nome }}">{{ pessoa.nome }}</a>
+                            </td>
+                            <td nowrap="true">
+                                <a href="/selecao/{{ pessoa.cpf }}">{{ pessoa.cpf }}</a>
+                            </td>
+                            <td>
+                                <a href="/edicao/{{ pessoa.id }}" class="btn btn-success" role="button">Editar</a>
+                            </td>
+                            <td>
+                                <a href="/delecao/{{ pessoa.id }}" class="btn btn-danger" role="button">Deletar</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+</body>
+</html>
